@@ -1,0 +1,27 @@
+pre_install() {
+	virtualenv2 --system-site-packages /usr/lib/seafile/seafileenv
+	source /usr/lib/seafile/seafileenv/bin/activate
+	pip install -U Django==1.3.1
+	deactivate
+}
+
+post_install() {
+  echo " " > /dev/null
+}
+
+pre_upgrade() {
+  echo " " > /dev/null
+}
+
+post_upgrade() {
+  echo " " > /dev/null
+}
+
+pre_remove() {
+  echo " " > /dev/null
+}
+
+post_remove() {
+	rm -rf /usr/lib/seafile/seafileenv
+}
+
