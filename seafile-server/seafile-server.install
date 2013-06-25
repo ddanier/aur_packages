@@ -1,27 +1,61 @@
 pre_install() {
-	virtualenv2 --system-site-packages /usr/lib/seafile/seafileenv
-	source /usr/lib/seafile/seafileenv/bin/activate
-	pip install -U Django==1.3.1
+    # init virtualenv
+	virtualenv2 --system-site-packages /usr/lib/seafile/python-env
+	virtualenv2 --relocatable /usr/lib/seafile/python-env
+	source /usr/lib/seafile/python-env/bin/activate
+	# we use "-U" here, so pip will overlay the system package if needed
+	# (this will most probably mean we do a Django downgrade)
+	pip install -U 'Django<1.4'
 	deactivate
+	
+	# add users
+    getent group seafile >/dev/null 2>&1 || groupadd seafile &>/dev/null
+    getent passwd seafile >/dev/null 2>&1 || useradd -g seafile -d /var/seafile/ -s /bin/false seafile &>/dev/null
+    
+    # make dirs ready
+    if [ ! -d /var/seafile ]
+    then
+        mkdir -p "/var/seafile/seafile-server"
+        ln -sf ../../../lib/seahub "$pkgdir/var/seafile/seafile-server/seahub"
+        mkdir "/var/seafile/seahub-data"
+        chown seafile:seafile "/var/seafile"
+        chown seafile:seafile "/var/seafile/seafile-server"
+        chown seafile:seafile "/var/seafile/seahub-data"
+    fi
 }
 
 post_install() {
-  echo " " > /dev/null
+    echo '####################################################################'
+    echo '# NEXT STEPS (as root):                                            #'
+    echo '# 1) cd /var/seafile/                                              #'
+    echo '# 2) sudo -u seafile seafile-admin setup (and follow instructions) #'
+    echo '# 3) systemctl enable seafile-server.service (and start, too)      #'
+    echo '# NOTE: If you run client and server on the same machine you will  #'
+    echo '#       need to change the default ports                           #'
+    echo '####################################################################'
 }
 
 pre_upgrade() {
-  echo " " > /dev/null
-}
-
-post_upgrade() {
-  echo " " > /dev/null
-}
-
-pre_remove() {
-  echo " " > /dev/null
+    pre_install
 }
 
 post_remove() {
-	rm -rf /usr/lib/seafile/seafileenv
+    # remove users
+    if getent passwd seafile >/dev/null 2>&1; then
+        userdel seafile
+    fi
+    if getent group seafile >/dev/null 2>&1; then
+        groupdel seafile
+    fi
+    
+    # remove virtualenv
+	rm -rf /usr/lib/seafile/python-env
+	
+	# hint to remove additional dirs
+    echo '####################################################################'
+    echo '# NOTE: seafile-server data files still exist!                     #'
+    echo '#       Remove /var/seafile if you want to completely remove       #'
+    echo '#       seafile-server.                                            #'
+    echo '####################################################################'
 }
 

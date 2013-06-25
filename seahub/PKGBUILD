@@ -5,19 +5,46 @@ pkgdesc="Seahub is the seafile HTTP server component (based on Django)."
 arch=('i686' 'x86_64')
 url="http://seafile.com"
 license=('GPLv3')
-depends=('glib2>=2.28' 'libevent>=2.0' 'curl' 'util-linux' 'intltool>=0.40' 'sqlite>=3.7' 'libmysqlclient>=5.5' 'python2-mako' 'python2-webpy' 'python2-simplejson' 'python2-imaging' 'python2-chardet' 'python2-pip' 'python2-virtualenv' 'gunicorn' 'python2-djblets' 'ccnet>=1.3.3' 'libsearpc>=1.1.0' 'libevhtp' 'seafile-common' 'python2-django' 'django-rest-framework')
+depends=('glib2>=2.28'
+    'libevent>=2.0'
+    'curl'
+    'util-linux'
+    'intltool>=0.40'
+    'sqlite>=3.7'
+    'libmysqlclient>=5.5'
+    'python2-mako'
+    'python2-webpy'
+    'python2-simplejson'
+    'python2-imaging'
+    'python2-chardet'
+    'python2-pip'
+    'python2-virtualenv'
+    'gunicorn'
+    'python2-djblets'
+    'ccnet>=1.3.3'
+    'libsearpc>=1.1.0'
+    'libevhtp'
+    'seafile-common'
+    'django-rest-framework')
 makedepends=('pacman>=4.1')
 optdepends=()
 provides=()
 conflicts=()
 options=
 
-source=("https://seafile.googlecode.com/files/seahub-${pkgver}.tar.gz")
-sha256sums=('15246b103ab91feb61e5b13af226a49cd91d2c5e472696a72a92f87c46000ffe')
+source=("https://seafile.googlecode.com/files/seahub-${pkgver}.tar.gz"
+    "seahub-settings.patch")
+sha256sums=('15246b103ab91feb61e5b13af226a49cd91d2c5e472696a72a92f87c46000ffe'
+    '82b994babd48da008812941ebdf1026181fce7074125dd470e83ed777f8b7f10')
+
+prepare () {
+	cd "$srcdir/$pkgname-$pkgver"
+	patch -p1 -i "$srcdir/seahub-settings.patch"
+}
 
 package () {
-    mkdir -p "$pkgdir/opt/seafile/"
-    cp -rp "$srcdir/$pkgname-$pkgver" "$pkgdir/opt/seafile/"
-    cd "$pkgdir/opt/seafile/"
+    mkdir -p "$pkgdir/usr/lib/"
+    cp -rp "$srcdir/$pkgname-$pkgver" "$pkgdir/usr/lib/$pkgname-$pkgver"
+    cd "$pkgdir/usr/lib/"
     ln -s $pkgname-$pkgver $pkgname
 }

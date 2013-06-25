@@ -9,7 +9,16 @@ pkgdesc="Seafile is an online file storage and collaboration tool. This is seafi
 arch=('i686' 'x86_64')
 url="https://github.com/haiwen/seafile/"
 license=('GPLv3')
-depends=('ccnet>=1.3.4' 'python2-mako' 'python2-simplejson' 'python2-webpy' 'gtk2' 'libnotify' 'hicolor-icon-theme' 'libevent' 'intltool' 'seafile-common')
+depends=('ccnet>=1.3.4'
+    'python2-mako'
+    'python2-simplejson'
+    'python2-webpy'
+    'gtk2'
+    'libnotify'
+    'hicolor-icon-theme'
+    'libevent'
+    'intltool'
+    'seafile-common')
 makedepends=()
 optdepends=()
 options=('!libtool' '!emptydirs')
@@ -31,11 +40,16 @@ build ()
 
 package ()
 {
+    # normal install
 	cd "$srcdir/seafile-$pkgver"
 	make DESTDIR="$pkgdir/" install
 	install -D -m644 $srcdir/seafile-$pkgver/LICENCE.txt $pkgdir/usr/share/licenses/$pkgname/LICENCE.txt
+	# cleanup common files
     for F in $(<"$srcdir/common-cleanup.txt")
     do
-        rm "$pkgdir/$F"
+        if [ -e "$pkgdir/$F" ]
+        then
+            rm "$pkgdir/$F"
+        fi
     done
 }

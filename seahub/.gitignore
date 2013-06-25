@@ -1,0 +1,4 @@
+/pkg/
+/seahub-*.pkg.tar.xz
+/seahub-*.tar.gz
+/src/

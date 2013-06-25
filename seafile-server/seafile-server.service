@@ -1,0 +1,12 @@
+[Unit]
+Description=seafile-server is an Dropbox replacement
+
+[Service]
+Type=forking
+User=seafile
+WorkingDirectory=/var/seafile/
+ExecStart=/usr/bin/seafile-admin start
+ExecStop=/usr/bin/seafile-admin stop
+
+[Install]
+WantedBy=multi-user.target

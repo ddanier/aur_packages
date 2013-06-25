@@ -1,0 +1,4 @@
+/pkg/
+/seafile-*.tar.gz
+/seafile-server-*.pkg.tar.xz
+/src/
