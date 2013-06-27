@@ -1,0 +1,23 @@
+diff --git a/seahub/settings.py b/seahub/settings.py
+--- a/seahub/settings.py
++++ b/seahub/settings.py
+@@ -292,11 +292,6 @@ LOGGING = {
+             'format': '%(asctime)s [%(levelname)s] %(name)s:%(lineno)s %(funcName)s %(message)s'
+         },
+     },
+-    'filters': {
+-        'require_debug_false': {
+-            '()': 'django.utils.log.RequireDebugFalse'
+-         }
+-     },
+     'handlers': {
+         'default': {
+             'level':'WARN',
+@@ -314,7 +309,6 @@ LOGGING = {
+         },
+         'mail_admins': {
+             'level': 'ERROR',
+-            'filters': ['require_debug_false'],
+             'class': 'django.utils.log.AdminEmailHandler'
+         }
+     },

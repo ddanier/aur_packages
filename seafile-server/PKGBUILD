@@ -1,5 +1,6 @@
 pkgname=seafile-server
 pkgver=1.7.1
+_seahub_pkgver=1.7.0
 pkgrel=1
 pkgdesc="Seafile is an open-source Dropbox replacement."
 arch=('i686' 'x86_64')
@@ -25,7 +26,6 @@ depends=('glib2>=2.28'
     'libsearpc>=1.1.0'
     'libevhtp'
     'seafile-common'
-    'seahub>=1.7.0'
     'django-rest-framework')
 makedepends=('pacman>=4.1')
 optdepends=()
@@ -36,17 +36,23 @@ options=
 install=seafile-server.install
 
 source=("https://seafile.googlecode.com/files/seafile-${pkgver}.tar.gz"
+    "https://seafile.googlecode.com/files/seahub-${_seahub_pkgver}.tar.gz"
 	"seafile-admin.patch"
+	"seahub-settings.patch"
 	"seafile-server.service"
     "common-cleanup.txt")
 sha256sums=('8bce8f727deebc71c04a0e1b6ad3d9d39a6454858128a0e75e1903d59fabef79'
+    '15246b103ab91feb61e5b13af226a49cd91d2c5e472696a72a92f87c46000ffe'
 	'e9719f910ae9939ebe2037f57e6def589320325e9dc23f0da7329fe07c279bae'
+	'e0ff21d515e6954ad4b03f640a6dbd3ab2b54f530d837115720bc1e7ea3a130d'
 	'e90abb0ca472257cf488b82a5bc37faebc0adc87b8330f165945d2d3d03ce842'
     '84db644002f3d73efa552229cf23677e118b2642b69b39f12c9232549cd78acf')
 
 prepare () {
 	cd "$srcdir/${pkgname/-server/}-$pkgver"
 	patch -p1 -i "$srcdir/seafile-admin.patch"
+	cd "$srcdir/seahub-$_seahub_pkgver"
+	patch -p1 -i "$srcdir/seahub-settings.patch"
 }
 
 build () {
@@ -70,4 +76,7 @@ package () {
     # install systemd service
     mkdir -p "$pkgdir/usr/lib/systemd/system/"
     cp "$srcdir/seafile-server.service" "$pkgdir/usr/lib/systemd/system/seafile-server.service"
+    # make seahub ready
+    mkdir -p "$pkgdir/var/seafile/seafile-server/"
+    cp -rp "$srcdir/seahub-$_seahub_pkgver" "$pkgdir/var/seafile/seafile-server/seahub"
 }

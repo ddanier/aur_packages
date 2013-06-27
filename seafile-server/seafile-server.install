@@ -11,17 +11,6 @@ pre_install() {
 	# add users
     getent group seafile >/dev/null 2>&1 || groupadd seafile &>/dev/null
     getent passwd seafile >/dev/null 2>&1 || useradd -g seafile -d /var/seafile/ -s /bin/false seafile &>/dev/null
-    
-    # make dirs ready
-    if [ ! -d /var/seafile ]
-    then
-        mkdir -p "/var/seafile/seafile-server"
-        ln -sf ../../../lib/seahub "$pkgdir/var/seafile/seafile-server/seahub"
-        mkdir "/var/seafile/seahub-data"
-        chown seafile:seafile "/var/seafile"
-        chown seafile:seafile "/var/seafile/seafile-server"
-        chown seafile:seafile "/var/seafile/seahub-data"
-    fi
 }
 
 post_install() {
@@ -33,10 +22,20 @@ post_install() {
     echo '# NOTE: If you run client and server on the same machine you will  #'
     echo '#       need to change the default ports                           #'
     echo '####################################################################'
+    
+    # make sure permissions are right
+    chown -R seafile:seafile "/var/seafile"
 }
 
 pre_upgrade() {
     pre_install
+}
+
+post_upgrade() {
+    # make sure permissions are right
+    chown seafile:seafile "/var/seafile"
+    chown seafile:seafile "/var/seafile/seafile-server"
+    chown -R seafile:seafile "/var/seafile/seafile-server/seahub"
 }
 
 post_remove() {
