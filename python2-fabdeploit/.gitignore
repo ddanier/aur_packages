@@ -1,0 +1,5 @@
+/pkg/
+/fabdeploit-*.tar.gz
+/python2-fabdeploit-*-any.pkg.tar.xz
+/python2-fabdeploit-*.src.tar.gz
+/src/
