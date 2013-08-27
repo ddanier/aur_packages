@@ -3,7 +3,7 @@ pkgver=1.7.1
 _seahub_pkgver=1.7.0
 pkgrel=1
 pkgdesc="Seafile is an open-source Dropbox replacement."
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'armv6h')
 url="http://seafile.com"
 license=('GPLv3')
 depends=('glib2>=2.28'
