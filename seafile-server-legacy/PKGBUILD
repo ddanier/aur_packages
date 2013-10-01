@@ -47,7 +47,7 @@ source=("https://seafile.googlecode.com/files/seafile-${pkgver}.tar.gz"
 sha256sums=('2690199d70c68806e40c236ec3d35f28d292744c848190436957d050c2d7099e'
 	'0d9578b85c00f3087a19f227b29c3fda13e83d093d024c68c1df5575d30d56dc'
     '3afb6b0ce902215d4b4f119e1094b2b84b2ec39e4ba8bd29d40fd7b5cdf4fa0c'
-    'b471c6a6e2f8f73bae4bb7406622291eb24a7991b3c537c4945dd1fe23805f53')
+    '0d031694d1285806a869e54f62c47e96387c088f9aeecf876dca13e1c9fe52e3')
 
 prepare () {
 	cd "$srcdir/${pkgname/-server/}-$pkgver"
