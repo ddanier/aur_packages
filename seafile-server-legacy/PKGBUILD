@@ -7,7 +7,7 @@ pkgname=seafile-server
 pkgver=1.8.2
 
 #The release number for the arch package, as fixes are added to the PKGBUILD, the release number will increase
-pkgrel=1
+pkgrel=2
 
 # The description of the package, should be about 80 characters long (one line)
 pkgdesc="Seafile is an open-source Dropbox replacement. (Server components, without seahub)"
