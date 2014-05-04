@@ -1,22 +1,23 @@
 # Maintainer: Hannes Graeuler <hgraeule @ uos dot de>
 pkgname=pngquant-git
-pkgver=20130522
+pkgver=1.8.4.r102.gb6124d0
 pkgrel=1
 pkgdesc="pngquant is a command-line utility to quantize PNGs down to 8-bit paletted PNGs"
 arch=('i686' 'x86_64')
 url="http://pngquant.org/"
 license=('BSD')
 depends=('libpng' 'zlib')
+makedepends=('git')
 source=()
 md5sums=()
 
 provides=('pngquant')
 conflicts=('pngquant')
-replaces=('pngquant')
+replaces=()
 
 _gitroot="git://github.com/pornel/improved-pngquant.git"
 _gitname="improved-pngquant"
-_gitcommit="b6124d09a260cf435f770e7ce5ee0a2728df2e49"
+_gitcommit="b6124d0"
 _LGFLAGS="-L../libpng -L../zlib -L/usr/local/lib/ -L/usr/lib/ -L/usr/X11/lib/"
 
 build() {
