@@ -23,4 +23,4 @@ package() {
   python2 setup.py install --root="$pkgdir/" --optimize=1
 }
 
-sha256sums=('a10e1e93eabe2fe23c303163ba78c0168b475524ec86cda76752350a0c6a02f1')
+sha256sums=('ad1f07060055ed74f02f0d01ea85844b4787473c0e5c8c0986886c3687be7abb')
