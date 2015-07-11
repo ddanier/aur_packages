@@ -1,0 +1,24 @@
+
+[gitslave]
+checkout = git clone 'ssh://aur@aur4.archlinux.org/gitslave.git' 'gitslave'
+
+[pngquant-git]
+checkout = git clone 'ssh://aur@aur4.archlinux.org/pngquant-git.git' 'pngquant-git'
+
+[python2-fabdeploit]
+checkout = git clone 'ssh://aur@aur4.archlinux.org/python2-fabdeploit.git' 'python2-fabdeploit'
+
+[python2-gitifyhg]
+checkout = git clone 'ssh://aur@aur4.archlinux.org/python2-gitifyhg.git' 'python2-gitifyhg'
+
+[python2-jig]
+checkout = git clone 'ssh://aur@aur4.archlinux.org/python2-jig.git' 'python2-jig'
+
+[python2-paypalrestsdk]
+checkout = git clone 'ssh://aur@aur4.archlinux.org/python2-paypalrestsdk.git' 'python2-paypalrestsdk'
+
+[python2-pyelasticsearch]
+checkout = git clone 'ssh://aur@aur4.archlinux.org/python2-pyelasticsearch.git' 'python2-pyelasticsearch'
+
+[python2-pysolr]
+checkout = git clone 'ssh://aur@aur4.archlinux.org/python2-pysolr.git' 'python2-pysolr'
